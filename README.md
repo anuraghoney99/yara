@@ -1,2 +1,0 @@
-# yara
-malware scanner
