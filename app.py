@@ -382,7 +382,6 @@ def keep_alive():
             pass
         time.sleep(800)
 
-# Start the thread before app.run
 threading.Thread(target=keep_alive, daemon=True).start()
 
 
