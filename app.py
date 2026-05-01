@@ -11,7 +11,6 @@ except yara.SyntaxError as e:
     print(f"Error compiling YARA rules: {e}")
     rules = None
 
-# 🚀 Ultra-Engaging Cyberpunk UI Template
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -362,11 +361,9 @@ def index():
         if file.filename == '':
             return "No selected file", 400
 
-        # Read file into memory and scan it
         file_data = file.read()
         matches = rules.match(data=file_data)
         
-        # Extract the names of the rules that matched
         match_names = [match.rule for match in matches]
 
         return render_template_string(HTML_TEMPLATE, result=True, matches=match_names)
