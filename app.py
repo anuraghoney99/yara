@@ -1,10 +1,13 @@
 import os
 import yara
 from flask import Flask, request, render_template_string
+import threading
+import requests
+import time
 
 app = Flask(__name__)
 
-# Compile the YARA rules when the server starts
+
 try:
     rules = yara.compile(filepath='rules.yar')
 except yara.SyntaxError as e:
@@ -369,6 +372,19 @@ def index():
         return render_template_string(HTML_TEMPLATE, result=True, matches=match_names)
 
     return render_template_string(HTML_TEMPLATE)
+
+
+def keep_alive():
+    while True:
+        try:
+            requests.get("https://yara-0rc5.onrender.com")
+        except:
+            pass
+        time.sleep(800)
+
+# Start the thread before app.run
+threading.Thread(target=keep_alive, daemon=True).start()
+
 
 if __name__ == '__main__':
     # Run locally on port 5000
